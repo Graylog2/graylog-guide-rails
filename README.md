@@ -32,3 +32,6 @@ Your Rails application should now log into the Graylog input the content pack la
     
 #### Custom events
 
+The above steps forward the standard built-in Rails logs to Graylog in realtime. Any explicit call to `logger` will also be sending to Graylog, but without the lograge formatting applied:
+
+    logger.info("A new user with id <#{user.id}> signed up.")
