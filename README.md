@@ -6,6 +6,10 @@ This guide briefly describes the steps required to send logs from your Ruby on R
 
 We'll be using [the official Graylog GELF gem](https://github.com/Graylog2/gelf-rb) to transport messages formatted by [the lograge gem](https://github.com/roidrage/lograge). The reason to use lograge is that Rails has a default logger that his very noisy and splits up messages over multiple lines. Lograge does a great job taming the format and provides a `key=value` formatter that we can use to extract fields in Graylog later.
 
+#### Configure Graylog
+
+We provide a Graylog content pack that starts the correct GELF input type together with extractors (parser rules) to make the configuration really easy. [Just apply this content pack using your Graylog Web Interface](https://marketplace.graylog.org/addons/0a1caed3-92a5-4f86-840b-2c61421d73dc) and follow the next steps in this guide.
+
 #### Configuring your Rails application
 
 Add the two gems to your `Gemfile`:
@@ -16,9 +20,7 @@ Add the two gems to your `Gemfile`:
 In your `config/environment/development.rb` (and `production.rb`) set up Rails to log to your Graylog server:
 
     config.logger = GELF::Logger.new("graylog.example.org", 12219, "WAN", { :facility => "YOUR_APP_NAME" })
-    
-Make sure to start a GELF UDP input on the configured port (12219 in this case) in your Graylog server.
-    
+
 Create a new initializer (`config/initializers/lograge.rb`) to configure the lograge formatting:
 
     Rails.application.configure do
@@ -26,10 +28,7 @@ Create a new initializer (`config/initializers/lograge.rb`) to configure the log
       config.lograge.formatter = Lograge::Formatters::KeyValue.new
     end
     
-Your Rails application should now log into Graylog. In the next step we'll improve the parsing on the Graylog side.
-    
-#### Content pack
-    
-
+Your Rails application should now log into the Graylog input the content pack launched and already apply proper parsing of the message content into fields.
     
 #### Custom events
+
