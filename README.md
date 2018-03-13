@@ -4,7 +4,7 @@ This guide briefly describes the steps required to send logs from your Ruby on R
 
 #### Overview
 
-We'll be using [the official Graylog GELF gem](https://github.com/Graylog2/gelf-rb) to transport messages formatted by [the lograge gem](https://github.com/roidrage/lograge). The reason to use lograge is that Rails has a default logger that his very noisy and splits up messages over multiple lines. Lograge does a great job taming the format and provides a `key=value` formatter that we can use to extract fields in Graylog later.
+We'll be using [the official Graylog GELF gem](https://github.com/Graylog2/gelf-rb) to transport messages formatted by [the lograge gem](https://github.com/roidrage/lograge). The reason to use lograge is that Rails has a default logger that is very noisy and splits up messages over multiple lines. Lograge does a great job taming the format and provides a `key=value` formatter that we can use to extract fields in Graylog later.
 
 #### Configure Graylog
 
