@@ -21,6 +21,15 @@ In your `config/environment/development.rb` (and `production.rb`) set up Rails t
 
     config.logger = GELF::Logger.new("graylog.example.org", 12219, "WAN", { :facility => "YOUR_APP_NAME" })
 
+> You may need to manually include the silencer module to your GELF logger to avoid `NoMethodError (undefined method 'silence_logger' for #<GELF::Logger:0x0000000007f5f170>)`:
+> ```ruby
+>   GELF::Logger.send :include, ActiveRecord::SessionStore::Extension::LoggerSilencer
+>   config.logger = GELF::Logger.new(...)
+> ```
+> 
+> This silencer is being used to silence the logger and not leaking private information into the log, and it is required for security reason.
+
+
 Create a new initializer (`config/initializers/lograge.rb`) to configure the lograge formatting:
 
     Rails.application.configure do
