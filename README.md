@@ -1,3 +1,7 @@
+# This guide has been archived.
+The information in this guide is very old and likely no longer applicable to current versions of Graylog. 
+Please take that into account when reading the following content.
+
 ### Logging from a Ruby on Rails application to a Graylog server
 
 This guide briefly describes the steps required to send logs from your Ruby on Rails application to a Graylog server. **The Rails version used in this guide is v4.2.1.** but should work with different versions, too.
